@@ -1,25 +1,40 @@
+import os
 import pickle
 import pandas as pd
 import streamlit as st
 import pathlib
+import gdown
 
 BASE_DIR = pathlib.Path(__file__).parent
 ASSETS_DIR = BASE_DIR / "assets"
 
-st.set_page_config(page_title="Car Price Prediction", layout="wide")
+# Google Drive file ID for your model
+MODEL_FILE_ID = "YOUR_FILE_ID_HERE"  # <-- replace with your own
+MODEL_PATH = BASE_DIR / "car_price.pkl"
 
-model_path = BASE_DIR / "car_price.pkl"
-csv_path = BASE_DIR / "cleaned.csv"
-image_path = BASE_DIR / "car price.png"
+CSV_PATH = BASE_DIR / "cleaned.csv"
+IMAGE_PATH = BASE_DIR / "car price.png"
 
-with open(model_path, 'rb') as f:
+# Download model if not found
+if not MODEL_PATH.exists():
+    st.info("Downloading model file from Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?id={MODEL_FILE_ID}", str(MODEL_PATH), quiet=False)
+
+# Load model
+with open(MODEL_PATH, 'rb') as f:
     model = pickle.load(f)
 
-all = pd.read_csv(csv_path)
+# Load dataset
+all = pd.read_csv(CSV_PATH)
 
+# App setup
+st.set_page_config(page_title="Car Price Prediction", layout="wide")
 
-st.image(str(image_path))
-
+# Display image if exists
+if IMAGE_PATH.exists():
+    st.image(str(IMAGE_PATH))
+else:
+    st.warning(f"Image not found: {IMAGE_PATH}")
 
 cg = all.copy()
 
@@ -48,8 +63,7 @@ all = cg.copy()
 all.drop('Price', inplace=True, axis=1)
 del cg
 
-col3.markdown('(Dataset from kaggle )[https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data]')
-
+col3.markdown('[Dataset from Kaggle](https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data)')
 
 # ===== Numeric inputs =====
 encoded_cols = [col + 'encoded' for col in all.select_dtypes(include='object').columns]
