@@ -5,10 +5,8 @@ import pandas as pd
 # Load model and data
 st.set_page_config(page_title="Car Price Prediction", layout="wide")
 
-data = pickle.load(open(r"C:\Users\User\PycharmProjects\PythonProject4\.venv\car_price.pkl", 'rb'))
-model = data['model']
-all = data['all']
-scaler = data['scaler']
+model = pickle.load(open(r"C:\Users\User\Desktop\proj\car_price.pkl", 'rb'))
+all = pd.read_csv(r'C:\Users\User\PycharmProjects\PythonProject4\.venv\cleaned.csv')
 cg=all.copy()
 # Streamlit page
 st.title('Car Price Prediction')
@@ -68,8 +66,7 @@ cols=['Manufacturer', 'Model', 'Category', 'Fuel type', 'Gear box type',
        'Engine volume', 'Mileage', 'Cylinders', 'Airbags']
 bb=dict(zip(cols,menu))
 wb = pd.DataFrame(bb, index=[0])
-wb_scaled= scaler.transform(wb)
 click= st.sidebar.button('predict')
 if click :
-       price = model.predict(wb_scaled)
+       price = model.predict(wb)
        st.sidebar.success("Price is " + str(price))
