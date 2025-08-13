@@ -3,17 +3,18 @@ import streamlit as st
 import pandas as pd
 
 # Load model and data
-data = pickle.load(open(r"C:\Users\User\Desktop\proj\car_price.sav", 'rb'))
+st.set_page_config(page_title="Car Price Prediction", layout="wide")
+
+data = pickle.load(open(r"C:\Users\User\PycharmProjects\PythonProject4\.venv\car_price.pkl", 'rb'))
 model = data['model']
 all = data['all']
 scaler = data['scaler']
 cg=all.copy()
 # Streamlit page
-st.set_page_config(page_title="Car Price Prediction", layout="wide")
 st.title('Car Price Prediction')
 st.sidebar.header('Feature Selection')
 st.sidebar.info('An easy app to predict')
-st.image(r"C:\Users\User\Desktop\66c26746-c655-4110-81eb-ce6854a9c5a4.png")
+st.image(r"C:\Users\User\PycharmProjects\PythonProject4\.venv\66c26746-c655-4110-81eb-ce6854a9c5a4.png")
 
 def back(name, k1, k2, container):
     mapping = dict(zip(k1, k2))
@@ -72,4 +73,3 @@ click= st.sidebar.button('predict')
 if click :
        price = model.predict(wb_scaled)
        st.sidebar.success("Price is " + str(price))
-
