@@ -9,6 +9,7 @@ all = data['all']
 scaler = data['scaler']
 cg=all.copy()
 # Streamlit page
+st.set_page_config(page_title="Car Price Prediction", layout="wide")
 st.title('Car Price Prediction')
 st.sidebar.header('Feature Selection')
 st.sidebar.info('An easy app to predict')
@@ -71,3 +72,4 @@ click= st.sidebar.button('predict')
 if click :
        price = model.predict(wb_scaled)
        st.sidebar.success("Price is " + str(price))
+
