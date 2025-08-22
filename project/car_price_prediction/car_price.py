@@ -71,3 +71,4 @@ if click:
 
        wb_predict=model.predict(wb.values)
        st.sidebar.success(wb_predict)
+
