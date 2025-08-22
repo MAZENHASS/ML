@@ -2,12 +2,9 @@ import pickle
 import streamlit as st
 import pandas as pd
 
-import os
-
-file_path = os.path.join(os.path.dirname(__file__), "car_price.pkl")
-
-with open(file_path, "rb") as f:
+with open("data/car_price.pkl", "rb") as f:
     model = pickle.load(f)
+
 
 all = pd.read_csv('cleaned.csv')
 cg=all.copy()
@@ -75,6 +72,7 @@ if click:
 
        wb_predict=model.predict(wb.values)
        st.sidebar.success(wb_predict)
+
 
 
 
