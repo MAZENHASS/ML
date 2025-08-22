@@ -11,3 +11,4 @@ st.sidebar.info('An easy app to predict')
 st.image('car price.png')
 
 
+
