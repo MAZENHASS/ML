@@ -8,4 +8,6 @@ st.sidebar.header('Feature Selection')
 st.sidebar.info('An easy app to predict')
 
 
+st.image('car price.png')
+
 
