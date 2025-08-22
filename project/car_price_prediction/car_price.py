@@ -3,8 +3,8 @@ import streamlit as st
 import pandas as pd
 
 # Load model and data
-model = pickle.load(open('car_price.pkl', 'rb'))
-
+with open("car_price.pkl", "rb") as f:
+    model = pickle.load(f)
 all = pd.read_csv('cleaned.csv')
 cg=all.copy()
 # Streamlit page
@@ -71,4 +71,5 @@ if click:
 
        wb_predict=model.predict(wb.values)
        st.sidebar.success(wb_predict)
+
 
