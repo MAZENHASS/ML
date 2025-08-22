@@ -2,8 +2,7 @@ import pickle
 import streamlit as st
 import pandas as pd
 
-with open("car_price.pkl", "rb") as f:
-    model = pickle.load(f)
+
 
 
 all = pd.read_csv('cleaned.csv')
@@ -18,6 +17,10 @@ st.title('Car Price Prediction')
 st.sidebar.header('Feature Selection')
 st.sidebar.info('An easy app to predict')
 st.image('car price.png')
+
+
+with open("car_price.pkl", "rb") as f:
+    model = pickle.load(f)
 
 def back(name, k1, k2, container):
     mapping = dict(zip(k1, k2))
@@ -74,6 +77,7 @@ if click:
 
        wb_predict=model.predict(wb.values)
        st.sidebar.success(wb_predict)
+
 
 
 
